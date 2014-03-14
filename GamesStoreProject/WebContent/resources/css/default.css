@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+.title {
+	color: blue;
+}
+
+.table {
+	
+	border: 1px solid gray;
+}
+
+.table td {
+	padding: 10px;
+}
