@@ -19,11 +19,13 @@
 		<tr>
 			<td>id</td>
 			<td>Game</td>
+			<td>Developer</td>
 		</tr>
 		<c:forEach var="game" items="${games}">
 			<tr>
 				<td></td>
 				<td>${game.name}</td>
+				<td>${game.developer.name}
 			</tr>
 		</c:forEach>
 	</table>

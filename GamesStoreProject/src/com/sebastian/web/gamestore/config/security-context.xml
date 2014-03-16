@@ -37,3 +37,4 @@
 		<security:logout logout-success-url="/loggedout" />
 	</security:http>
 </beans>
+

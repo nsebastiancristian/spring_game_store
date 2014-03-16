@@ -23,14 +23,19 @@ public class GamesDao {
 	
 	public List<Game> getAllGames() {
 		
-		return jdbc.query("select name from games", new RowMapper<Game>(){
+		return jdbc.query("SELECT games.name, companies.name, isPublisher FROM games, companies WHERE games.idDeveloper = companies.id", new RowMapper<Game>(){
 
 			@Override
 			public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
 				
 				Game game = new Game();				
-				game.setName(rs.getString("name"));
+				game.setName(rs.getString("games.name"));
 				
+				Company developer = new Company();
+				developer.setName(rs.getString("companies.name"));
+				developer.setPublisher(rs.getBoolean("isPublisher"));
+				
+				game.setDeveloper(developer);
 				return game;
 			}
 			
