@@ -17,6 +17,10 @@
 <body>
 	<h1 class="title">Welcome to the Game Store Project (2nd edition)!</h1>
 
+	<p>
+		<sec:authorize access="isAuthenticated()"> Hello ${username}  </sec:authorize>
+	</p>
+
 	<h2>Your options:</h2>
 	<p>
 		<a href="<c:url value='/games' />">Go to the games page.</a>

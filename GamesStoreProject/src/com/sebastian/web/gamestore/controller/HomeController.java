@@ -1,5 +1,7 @@
 package com.sebastian.web.gamestore.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
 	@RequestMapping("/")
-	public String showHome(Model model) {
+	public String showHome(Model model, Principal principal) {
+		String username = principal.getName();
+		model.addAttribute("username", username);
+		
 		return "home";
 	}
 	
