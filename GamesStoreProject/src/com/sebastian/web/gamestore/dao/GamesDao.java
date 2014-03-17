@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -23,19 +24,53 @@ public class GamesDao {
 	
 	public List<Game> getAllGames() {
 		
-		return jdbc.query("SELECT games.name, companies.name, isPublisher FROM games, companies WHERE games.idDeveloper = companies.id", new RowMapper<Game>(){
+		return jdbc.query("SELECT games.id, games.name, games.addedOn, games.releasedOn, companies.name, c.name from games left join companies on games.idDeveloper = companies.id left join companies c on games.idPublisher = c.id", new RowMapper<Game>(){
 
 			@Override
 			public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
 				
-				Game game = new Game();				
+				Game game = new Game();
+				game.setId(rs.getInt("games.id"));
 				game.setName(rs.getString("games.name"));
+				
+				game.setDateAdded(rs.getDate("games.addedOn"));
+				game.setDateReleased(rs.getDate("games.releasedOn"));
 				
 				Company developer = new Company();
 				developer.setName(rs.getString("companies.name"));
-				developer.setPublisher(rs.getBoolean("isPublisher"));
-				
+				developer.setPublisher(false);
 				game.setDeveloper(developer);
+				
+				Company publisher = new Company();
+				publisher.setName(rs.getString("c.name"));
+				publisher.setPublisher(true);
+				
+				game.setPublisher(publisher);
+				return game;
+			}
+			
+		});
+	}
+
+	public void buyGame(String id, String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+		params.addValue("username", username);
+		
+		jdbc.update("insert into ownedgames (games_id, username) values (:id, :username)", params);
+	}
+
+	public List<Game> getMyGames(String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource("username", username);
+		return jdbc.query("SELECT ownedgames.games_id, games.name, games.id from ownedgames join games on ownedgames.games_id = games.id where ownedgames.username = :username", params, new RowMapper<Game>(){
+
+			@Override
+			public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				Game game = new Game();
+				game.setId(rs.getInt("games.id"));
+				game.setName(rs.getString("games.name"));
+								
 				return game;
 			}
 			

@@ -29,6 +29,11 @@
 	<p>
 		<a href="<c:url value='/adminpage' />">Go to the admin page.</a>
 	</p>
+	
+	<p>
+		<a href="<c:url value='/mygames' />">Go to My Games.</a>
+	</p>
+	
 
 	
 

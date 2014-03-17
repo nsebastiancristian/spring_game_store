@@ -26,4 +26,12 @@ public class GamesService {
 		
 		return gamesDao.getAllGames();
 	}
+
+	public void buyGame(String id, String username) {
+		gamesDao.buyGame(id, username);
+	}
+
+	public List<Game> getMyGames(String username) {
+		return gamesDao.getMyGames(username);
+	}
 }

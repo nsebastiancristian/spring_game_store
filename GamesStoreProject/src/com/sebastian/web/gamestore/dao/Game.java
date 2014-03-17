@@ -1,10 +1,15 @@
 package com.sebastian.web.gamestore.dao;
 
+import java.sql.Date;
+
 public class Game {
 
 	private int id;
 	private String name;
 	private Company developer;
+	private Company publisher;
+	private Date dateAdded;
+	private Date dateReleased;
 
 	public Game() {
 
@@ -20,6 +25,25 @@ public class Game {
 		this.id = id;
 		this.name = name;
 		this.developer = developer;
+	}
+
+	public Game(int id, String name, Company developer, Company publisher) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.developer = developer;
+		this.publisher = publisher;
+	}
+
+	public Game(int id, String name, Company developer, Company publisher,
+			Date dateAdded, Date dateReleased) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.developer = developer;
+		this.publisher = publisher;
+		this.dateAdded = dateAdded;
+		this.dateReleased = dateReleased;
 	}
 
 	public int getId() {
@@ -44,6 +68,30 @@ public class Game {
 
 	public void setDeveloper(Company developer) {
 		this.developer = developer;
+	}
+
+	public Company getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Company publisher) {
+		this.publisher = publisher;
+	}
+
+	public Date getDateAdded() {
+		return dateAdded;
+	}
+
+	public void setDateAdded(Date dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+
+	public Date getDateReleased() {
+		return dateReleased;
+	}
+
+	public void setDateReleased(Date dateReleased) {
+		this.dateReleased = dateReleased;
 	}
 
 }
