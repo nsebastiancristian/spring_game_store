@@ -11,7 +11,10 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String showHome(Model model, Principal principal) {
-		String username = principal.getName();
+		String username = "user";
+		if(principal != null)
+		 username = principal.getName();
+		
 		model.addAttribute("username", username);
 		
 		return "home";
