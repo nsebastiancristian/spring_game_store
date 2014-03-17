@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sebastian.web.gamestore.dao.Game;
 import com.sebastian.web.gamestore.dao.GamesDao;
+import com.sebastian.web.gamestore.dao.User;
 
 @Service("gamesService")
 public class GamesService {
@@ -22,16 +23,16 @@ public class GamesService {
 		this.gamesDao = gamesDao;
 	}
 	
-	public List<Game> getCurrent() {
+	public List<Game> getCurrent(User user) {
 		
-		return gamesDao.getAllGames();
+		return gamesDao.getAllGames(user);
 	}
 
 	public void buyGame(String id, String username) {
 		gamesDao.buyGame(id, username);
 	}
 
-	public List<Game> getMyGames(String username) {
-		return gamesDao.getMyGames(username);
+	public List<Game> getMyGames(User user) {
+		return gamesDao.getMyGames(user);
 	}
 }

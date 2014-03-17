@@ -10,6 +10,8 @@ public class Game {
 	private Company publisher;
 	private Date dateAdded;
 	private Date dateReleased;
+	
+	private User owner;
 
 	public Game() {
 
@@ -94,4 +96,13 @@ public class Game {
 		this.dateReleased = dateReleased;
 	}
 
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	
 }

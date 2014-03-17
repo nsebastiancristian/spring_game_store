@@ -22,8 +22,8 @@ public class GamesDao {
 		this.jdbc = new NamedParameterJdbcTemplate(jdbc);		
 	}
 	
-	public List<Game> getAllGames() {
-		
+	public List<Game> getAllGames(final User user) {
+			
 		return jdbc.query("SELECT games.id, games.name, games.addedOn, games.releasedOn, companies.name, c.name from games left join companies on games.idDeveloper = companies.id left join companies c on games.idPublisher = c.id", new RowMapper<Game>(){
 
 			@Override
@@ -51,6 +51,10 @@ public class GamesDao {
 			
 		});
 	}
+	
+	private boolean isOwned(User user, int id) {
+		return false;
+	}
 
 	public void buyGame(String id, String username) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
@@ -60,8 +64,8 @@ public class GamesDao {
 		jdbc.update("insert into ownedgames (games_id, username) values (:id, :username)", params);
 	}
 
-	public List<Game> getMyGames(String username) {
-		MapSqlParameterSource params = new MapSqlParameterSource("username", username);
+	public List<Game> getMyGames(final User user) {
+		MapSqlParameterSource params = new MapSqlParameterSource("username", user.getUsername());
 		return jdbc.query("SELECT ownedgames.games_id, games.name, games.id from ownedgames join games on ownedgames.games_id = games.id where ownedgames.username = :username", params, new RowMapper<Game>(){
 
 			@Override
@@ -70,6 +74,8 @@ public class GamesDao {
 				Game game = new Game();
 				game.setId(rs.getInt("games.id"));
 				game.setName(rs.getString("games.name"));
+				
+				game.setOwner(user);
 								
 				return game;
 			}

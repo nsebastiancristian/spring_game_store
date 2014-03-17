@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sebastian.web.gamestore.dao.Game;
+import com.sebastian.web.gamestore.dao.User;
 import com.sebastian.web.gamestore.service.GamesService;
 
 @Controller
@@ -22,9 +23,15 @@ public class GamesController {
 	}
 	
 	@RequestMapping("/games")
-	public String showGamesPage(Model model) {
+	public String showGamesPage(Model model, Principal principal) {
+		User user = null;
 		
-		List<Game> games = gamesService.getCurrent();
+		if(principal != null) {
+			String username = principal.getName();
+			user = new User(username);
+		}
+		
+		List<Game> games = gamesService.getCurrent(user);
 		model.addAttribute("games", games);
 		
 		return "games";
@@ -34,7 +41,9 @@ public class GamesController {
 	public String showMyGamesPage(Model model, Principal principal) {
 		
 		String username = principal.getName();
-		List<Game> games = gamesService.getMyGames(username);
+		User user = new User(username);
+		
+		List<Game> games = gamesService.getMyGames(user);
 		model.addAttribute("games", games);
 		
 		return "mygames";
