@@ -13,36 +13,19 @@
 </head>
 <body>
 
-<h1 class="title">Games List</h1>
+<h1 class="title">My Wishlist Page</h1>
 
 	<table class="table">
 		<tr>
 			<td>id</td>
 			<td>Game</td>
-			<td>Added On</td>
-			<td>Released On</td>
-			<td>Developer</td>
-			<td>Publisher</td>
-			<td>Buy Game</td>
+			
 		</tr>
 		<c:forEach var="game" items="${games}">
 			<tr>
-				<td>${game.id}</td>
+				<td></td>
 				<td>${game.name}</td>
-				<td>${game.dateAdded}</td>
-				<td>${game.dateReleased}</td>
-				<td>${game.developer.name}</td>
-				<td>${game.publisher.name}</td>
-				<td> 
-					<c:choose>
-	    				<c:when test="${game.owner != null}">
-					       Owned
-					    </c:when>
-					    <c:otherwise>
-							<a href="<c:url value='/buygame?id=${game.id}' />"> Buy</a> 
-					    </c:otherwise>
-					</c:choose>
-				</td>
+				
 			</tr>
 		</c:forEach>
 	</table>

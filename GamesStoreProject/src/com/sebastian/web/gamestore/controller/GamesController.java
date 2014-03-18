@@ -58,4 +58,22 @@ public class GamesController {
 		
 		return "mygames";
 	}
+	
+	@RequestMapping("/addtowishlist")
+	public String addToWishlist(Model model, Principal principal, @RequestParam("id") String id) {
+		
+		String username = principal.getName();
+		
+		gamesService.addToWishlist(id, username);
+		
+		return "mywishlist";
+	}
+	
+	@RequestMapping("/mywishlist")
+	public String showMyWishlistPage(Model model, Principal principal) {
+		String username = principal.getName();
+		User user = new User(username);
+		
+		return "mywishlist";
+	}
 }

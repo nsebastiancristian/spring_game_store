@@ -1,5 +1,6 @@
 package com.sebastian.web.gamestore.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,13 @@ public class GamesService {
 
 	public List<Game> getMyGames(User user) {
 		return gamesDao.getMyGames(user);
+	}
+
+	public void addToWishlist(String id, String username) {
+		gamesDao.addToWishlist(id, username);
+	}
+	
+	public List<Game> getWishlistGames(String username) {
+		return gamesDao.getMyWishlistGames(username);
 	}
 }

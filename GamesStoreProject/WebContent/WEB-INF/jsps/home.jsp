@@ -38,6 +38,10 @@
 		<a href="<c:url value='/mygames' />">Go to My Games.</a>
 	</p>
 	
+	<p>
+		<a href="<c:url value='/mygames' />">Go to My Games.</a>
+	</p>
+	
 
 	
 
