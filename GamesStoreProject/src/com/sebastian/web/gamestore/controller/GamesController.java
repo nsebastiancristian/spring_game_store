@@ -72,8 +72,9 @@ public class GamesController {
 	@RequestMapping("/mywishlist")
 	public String showMyWishlistPage(Model model, Principal principal) {
 		String username = principal.getName();
-		User user = new User(username);
-		
+				
+		List<Game> wishlist = gamesService.getMyWishlistGames(username);
+		model.addAttribute("wishlist", wishlist);
 		return "mywishlist";
 	}
 }

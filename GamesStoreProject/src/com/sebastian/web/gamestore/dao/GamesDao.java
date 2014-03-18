@@ -88,18 +88,10 @@ public class GamesDao {
 		return jdbc.queryForInt("select count(*) from ownedgames where games_id = :id and username = :username", params) >= 1;
 	}
 
-	public void buyGame(String id, String username) {
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("id", id);
-		params.addValue("username", username);
-		
-		jdbc.update("insert into ownedgames (games_id, username) values (:id, :username)", params);
-	}
-
 	public List<Game> getMyGames(final User user) {
 		MapSqlParameterSource params = new MapSqlParameterSource("username", user.getUsername());
 		return jdbc.query("SELECT ownedgames.games_id, games.name, games.id from ownedgames join games on ownedgames.games_id = games.id where ownedgames.username = :username", params, new RowMapper<Game>(){
-
+	
 			@Override
 			public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
 				
@@ -113,6 +105,14 @@ public class GamesDao {
 			}
 			
 		});
+	}
+
+	public void buyGame(String id, String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+		params.addValue("username", username);
+		
+		jdbc.update("insert into ownedgames (games_id, username) values (:id, :username)", params);
 	}
 
 	public List<Game> getMyWishlistGames(String username) {

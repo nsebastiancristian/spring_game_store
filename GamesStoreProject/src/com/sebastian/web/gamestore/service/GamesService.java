@@ -41,7 +41,7 @@ public class GamesService {
 		gamesDao.addToWishlist(id, username);
 	}
 	
-	public List<Game> getWishlistGames(String username) {
+	public List<Game> getMyWishlistGames(String username) {
 		return gamesDao.getMyWishlistGames(username);
 	}
 }

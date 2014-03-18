@@ -21,10 +21,12 @@
 
 	<security:http use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/static/**" access="permitAll" />
 		<security:intercept-url pattern="/games" access="permitAll" />
 		<security:intercept-url pattern="/mygames" access="isAuthenticated()" />
 		<security:intercept-url pattern="/buygame" access="isAuthenticated()" />
-		<security:intercept-url pattern="/static/**" access="permitAll" />
+		<security:intercept-url pattern="/mywishlist" access="isAuthenticated()" />
+		<security:intercept-url pattern="/addtowishlist" access="isAuthenticated()" />
 		<security:intercept-url pattern="/loggedout" access="permitAll" />
 		<security:intercept-url pattern="/login" access="permitAll" />
 		<security:intercept-url pattern="/userpage" access="isAuthenticated()" />

@@ -21,7 +21,7 @@
 			<td>Game</td>
 			
 		</tr>
-		<c:forEach var="game" items="${games}">
+		<c:forEach var="game" items="${wishlist}">
 			<tr>
 				<td></td>
 				<td>${game.name}</td>

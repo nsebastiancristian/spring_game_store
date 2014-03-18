@@ -39,7 +39,7 @@
 	</p>
 	
 	<p>
-		<a href="<c:url value='/mygames' />">Go to My Games.</a>
+		<a href="<c:url value='/mywishlist' />">Go to My Wishlist.</a>
 	</p>
 	
 

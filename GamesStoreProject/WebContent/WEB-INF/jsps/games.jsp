@@ -24,6 +24,7 @@
 			<td>Developer</td>
 			<td>Publisher</td>
 			<td>Buy Game</td>
+			<td>Add to wishlist</td>
 		</tr>
 		<c:forEach var="game" items="${games}">
 			<tr>
@@ -42,6 +43,9 @@
 							<a href="<c:url value='/buygame?id=${game.id}' />"> Buy</a> 
 					    </c:otherwise>
 					</c:choose>
+				</td>
+				<td>
+					<a href="<c:url value='/addtowishlist?id=${game.id}' />"> Add </a> 
 				</td>
 			</tr>
 		</c:forEach>
