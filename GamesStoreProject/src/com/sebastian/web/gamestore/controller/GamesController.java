@@ -43,8 +43,7 @@ public class GamesController {
 		String username = principal.getName();
 		User user = new User(username);
 		
-		List<Game> games = gamesService.getMyGames(user);
-		model.addAttribute("games", games);
+		doShowMyGamesPageRoutine(model, user);
 		
 		return "mygames";
 	}
@@ -56,6 +55,9 @@ public class GamesController {
 		
 		gamesService.buyGame(id, username);
 		
+		User user = new User(username);
+		doShowMyGamesPageRoutine(model, user);
+		
 		return "mygames";
 	}
 	
@@ -66,6 +68,7 @@ public class GamesController {
 		
 		gamesService.addToWishlist(id, username);
 		
+		doShowMyWishlistPageRoutine(model, username);
 		return "mywishlist";
 	}
 	
@@ -73,8 +76,34 @@ public class GamesController {
 	public String showMyWishlistPage(Model model, Principal principal) {
 		String username = principal.getName();
 				
+		doShowMyWishlistPageRoutine(model, username);
+		return "mywishlist";
+	}
+	
+	@RequestMapping("/game")
+	public String showGamePage(Model model, Principal principal,  @RequestParam("id") String id) {
+		User user = null;
+		if(principal != null) {
+			String username = principal.getName();
+			user = new User(username);
+		}
+		Game game = gamesService.getGameDetails(id, user);
+		model.addAttribute("game", game);
+		
+		return "game";
+	}
+	
+	/**--------------------------------------------------------------------------------------------------**
+	 * -------------------------ROUTINES ---------------------------------------------------------------- *
+	 * -------------------------------------------------------------------------------------------------- */
+	
+	public void doShowMyWishlistPageRoutine(Model model, String username) {
 		List<Game> wishlist = gamesService.getMyWishlistGames(username);
 		model.addAttribute("wishlist", wishlist);
-		return "mywishlist";
+	}
+	
+	public void doShowMyGamesPageRoutine(Model model, User user) {
+		List<Game> games = gamesService.getMyGames(user);
+		model.addAttribute("games", games);
 	}
 }

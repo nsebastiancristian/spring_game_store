@@ -44,4 +44,22 @@ public class GamesService {
 	public List<Game> getMyWishlistGames(String username) {
 		return gamesDao.getMyWishlistGames(username);
 	}
+
+	public Game getGameDetails(String id, User user) {
+		
+		Game game = gamesDao.getGameDetails(id);
+		
+		String username = null;
+		if(user != null) {
+			username = user.getUsername();
+		}
+		
+		User owner = gamesDao.getGameOwner(id, username);
+		game.setOwner(owner);
+		
+		game.setWishlisted(gamesDao.isGameWishlisted(user, Integer.parseInt(id)));
+		
+				
+		return game;
+	}
 }

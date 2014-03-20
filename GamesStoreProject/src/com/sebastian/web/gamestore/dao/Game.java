@@ -10,7 +10,9 @@ public class Game {
 	private Company publisher;
 	private Date dateAdded;
 	private Date dateReleased;
-	
+	boolean wishlisted = false;
+	private String description;
+
 	private User owner;
 
 	public Game() {
@@ -102,6 +104,31 @@ public class Game {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public boolean isWishlisted() {
+		return wishlisted;
+	}
+
+	public void setWishlisted(boolean wishlisted) {
+		this.wishlisted = wishlisted;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "Game [id=" + id + ", name=" + name + ", developer=" + developer
+				+ ", publisher=" + publisher + ", dateAdded=" + dateAdded
+				+ ", dateReleased=" + dateReleased + ", wishlisted="
+				+ wishlisted + ", description=" + description + ", owner="
+				+ owner + "]";
 	}
 
 	

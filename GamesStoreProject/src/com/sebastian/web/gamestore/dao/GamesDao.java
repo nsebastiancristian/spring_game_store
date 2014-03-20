@@ -57,10 +57,15 @@ public class GamesDao {
 				{
 					game.setOwner(user);
 				}
+				else
+				{
+					//the game is not owned so we can check if it was wishlisted
+					if (isGameWishlisted(user, rs.getInt("games.id"))) {
+						game.setWishlisted(true);
+					}
+				}
 				
-				System.out.println("Game:" + game.getName());
-				boolean owned = game.getOwner() != null ? true: false;
-				System.out.println("Owned:" + owned);
+				
 				
 				return game;
 			}
@@ -108,11 +113,15 @@ public class GamesDao {
 	}
 
 	public void buyGame(String id, String username) {
+		//insert into ownedgames table
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("id", id);
 		params.addValue("username", username);
 		
 		jdbc.update("insert into ownedgames (games_id, username) values (:id, :username)", params);
+		
+		//delete from wishlistgames table (if it was previously wishlisted)
+		jdbc.update("delete from wishlistgames where games_id = :id and username = :username", params);
 	}
 
 	public List<Game> getMyWishlistGames(String username) {
@@ -140,5 +149,91 @@ public class GamesDao {
 		jdbc.update("insert into wishlistgames (games_id, username) values (:id, :username)", params);
 	}
 	
+	/**
+	 * Returns true if the user with the specified username wishlisted the game with the specified id, if the function returns false the game is either owned by the respective user or the user hasn't wishlisted that game
+	 * @param user - a User object having the current username 
+	 * @param id - id of the game
+	 * @return
+	 */
+	public boolean isGameWishlisted(User user, int id) {
+		
+		//check to see if there is an user
+		if(user == null) {
+			return false;
+		}
+		
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+		params.addValue("username", user.getUsername());
+		
+		return jdbc.queryForInt("select count(*) from wishlistgames where games_id = :id and username = :username", params) >= 1;
+	}
+
+	public Game getGameDetails(String id) {
+		
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("id", id);
+		
+		List<Game> game =  jdbc.query("SELECT games.id, games.name, games.addedOn, games.releasedOn, games.description, companies.name, c.name from games left join companies on games.idDeveloper = companies.id left join companies c on games.idPublisher = c.id where games.id = :id", params, new RowMapper<Game>(){
+
+			@Override
+			public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				Game game = new Game();
+				game.setId(rs.getInt("games.id"));
+				game.setName(rs.getString("games.name"));
+				game.setDateAdded(rs.getDate("games.addedOn"));
+				game.setDateReleased(rs.getDate("games.releasedOn"));
+				game.setDescription(rs.getString("games.description"));
+				
+				Company developer = new Company(rs.getString("companies.name"));
+				Company publisher = new Company(rs.getString("c.name"));
+				
+				game.setDeveloper(developer);
+				game.setPublisher(publisher);
+								
+				return game;
+			}
+			
+		});
+		
+		return game.get(0);
+	}
 	
+	/**
+	 * Return the user bean of a owner of a game with the specified id. 
+	 * @param id : the id of the game
+	 * @param username : the username of the owner
+	 * @return : Returns null if there is no owner of the specified game with the specified username, otherwise it returns the owner's bean
+	 */
+	public User getGameOwner(String id, String username) {
+		if(username == null) {
+			return null;
+		}
+		else {
+				if(isGameOwned(new User(username), Integer.parseInt(id))) {
+					MapSqlParameterSource params = new MapSqlParameterSource("username", username);
+					List<User> user = jdbc.query("select username, name, email from users where username = :username ", params, new RowMapper<User>(){
+						
+						@Override
+						public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+							
+							User user = new User();
+							user.setUsername(rs.getString("username"));
+							user.setName(rs.getString("name"));
+							user.setEmail(rs.getString("email"));
+							
+							return user;
+						}
+						
+					});
+					return user.get(0);	
+				}
+				else {
+					return null;
+				}
+				
+			}
+		}
+		
 }

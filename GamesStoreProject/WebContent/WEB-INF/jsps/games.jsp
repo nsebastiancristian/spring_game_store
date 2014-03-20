@@ -29,7 +29,7 @@
 		<c:forEach var="game" items="${games}">
 			<tr>
 				<td>${game.id}</td>
-				<td>${game.name}</td>
+				<td><a href="<c:url value='/game?id=${game.id}' />">${game.name}</a></td>
 				<td>${game.dateAdded}</td>
 				<td>${game.dateReleased}</td>
 				<td>${game.developer.name}</td>
@@ -45,7 +45,17 @@
 					</c:choose>
 				</td>
 				<td>
-					<a href="<c:url value='/addtowishlist?id=${game.id}' />"> Add </a> 
+					<c:choose>
+	    				<c:when test="${game.owner != null}">
+					       Owned
+					    </c:when>
+	    				<c:when test="${game.wishlisted == true}">
+					       Wishlisted
+					    </c:when>
+					    <c:otherwise>
+							<a href="<c:url value='/addtowishlist?id=${game.id}' />"> Add </a> 
+					    </c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
 		</c:forEach>

@@ -4,11 +4,12 @@ public class User {
 	String username;
 	String email;
 	boolean enabled;
+	String name;
 
 	public User() {
 
 	}
-	
+
 	public User(String username) {
 		this.username = username;
 	}
@@ -41,6 +42,14 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
