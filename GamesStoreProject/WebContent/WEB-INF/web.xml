@@ -29,6 +29,7 @@
 			classpath:com/sebastian/web/gamestore/config/security-context.xml
 			classpath:com/sebastian/web/gamestore/config/dao-context.xml
 			classpath:com/sebastian/web/gamestore/config/service-context.xml		
+			classpath:com/sebastian/web/gamestore/config/helper-context.xml		
 		</param-value>
   </context-param>
   <filter>
