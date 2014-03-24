@@ -16,13 +16,8 @@ public class FileHandler {
 	@Autowired
 	private static ServletContext context;
 	
-	public static void validateImage(MultipartFile image) {
-		if(context != null) {
-			System.out.println("The context has been initialized");
-		}
-		else {
-			System.out.println("The context has not been initialized");
-		}
+	public static void validateImage(MultipartFile image, ServletContext context) {
+		
 	}
 	
 	public static void saveImage(String filename, MultipartFile image) throws Exception{
