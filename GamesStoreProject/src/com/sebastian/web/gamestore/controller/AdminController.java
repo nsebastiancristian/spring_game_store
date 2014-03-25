@@ -1,5 +1,7 @@
 package com.sebastian.web.gamestore.controller;
 
+import java.io.File;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +61,12 @@ public class AdminController implements ServletContextAware {
 	}
 
 	@RequestMapping("/doAddPicture")
-	public String doAddPicture(Model model,
-			@RequestParam(value = "image") MultipartFile image) {
+	public String doAddPicture(Model model,	@RequestParam(value = "image") MultipartFile image) {
 
 		String webRootPath = servletContext.getRealPath("/");
 		webRootPath = webRootPath + "resources\\images\\";
+		String ImageFolderPath = webRootPath + "My Image Folder";
+		new File(ImageFolderPath).mkdir();
 
 		try {
 			if (!image.isEmpty()) {
