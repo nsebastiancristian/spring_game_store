@@ -14,6 +14,7 @@
 <body>
 <h1 class="title">This is the page for the Administrator</h1>
 <p><a href='<c:url value="/create_developer"/>'>Add a new developer</a></p>
+<p><a href='<c:url value="/addGame"/>'>Add a new game</a></p>
 <p><a href='<c:url value="/addPicture"/>'>Add a picture</a></p>
 
 </body>

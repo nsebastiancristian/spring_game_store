@@ -17,9 +17,9 @@ public class FileHandler {
 	}
 	
 	public static void validateImage(MultipartFile image) {
-		//System.out.println(image.getContentType());
-		if(!image.getContentType().equals("image/pjpeg")) {
-			throw new RuntimeException("Only JPG images accepted");
+		System.out.println(image.getContentType());
+		if(!image.getContentType().equals("image/pjpeg") && !image.getContentType().equals("image/jpeg") && !image.getContentType().equals("image/gif")) {
+			throw new RuntimeException("Only JPG and gif images accepted");
 		}
 	}
 	

@@ -10,6 +10,8 @@
 	<context:component-scan base-package="com.sebastian.web.gamestore.controller">
 	</context:component-scan>
 	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<!-- Used for looking up for the views -->
 	<bean id="jspViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsps/">
@@ -18,6 +20,7 @@
 	</bean>
 	<mvc:resources location="/resources/" mapping="/static/**" />
 
+	<!-- Used for the file uploading part -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- one of the properties available; the maximum file size in bytes -->
