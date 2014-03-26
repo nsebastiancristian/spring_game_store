@@ -74,6 +74,40 @@ public class GamesDao {
 	}
 	
 	/**
+	 * Returns a list of games with all the games from the database for the admin page
+	 * @return a list of games
+	 */
+	public List<Game> getAllGames() {
+		return jdbc.query("SELECT games.id, games.name, games.addedOn, games.releasedOn, companies.name, c.name from games left join companies on games.idDeveloper = companies.id left join companies c on games.idPublisher = c.id", new RowMapper<Game>(){
+
+			@Override
+			public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				Game game = new Game();
+				game.setId(rs.getInt("games.id"));
+				game.setName(rs.getString("games.name"));
+				
+				game.setDateAdded(rs.getDate("games.addedOn"));
+				game.setDateReleased(rs.getDate("games.releasedOn"));
+				
+				Company developer = new Company();
+				developer.setName(rs.getString("companies.name"));
+				developer.setPublisher(false);
+				game.setDeveloper(developer);
+				
+				Company publisher = new Company();
+				publisher.setName(rs.getString("c.name"));
+				publisher.setPublisher(true);
+				
+				game.setPublisher(publisher);
+				
+				return game;
+			}
+			
+		});
+	}
+
+	/**
 	 * Returns true if the user with the specified username owns the game with the specified id
 	 * @param user - a User object having the current username 
 	 * @param id - id of the game

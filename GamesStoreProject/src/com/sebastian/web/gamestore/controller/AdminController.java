@@ -1,6 +1,7 @@
 package com.sebastian.web.gamestore.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -14,7 +15,9 @@ import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sebastian.web.gamestore.dao.Company;
+import com.sebastian.web.gamestore.dao.Game;
 import com.sebastian.web.gamestore.service.CompaniesService;
+import com.sebastian.web.gamestore.service.GamesService;
 import com.sebastian.web.helper.FileHandler;
 
 @Controller
@@ -23,6 +26,13 @@ public class AdminController implements ServletContextAware {
 	private CompaniesService companiesService;
 
 	private ServletContext servletContext;
+	
+	private GamesService gamesService;
+
+	@Autowired
+	public void setCompaniesService(CompaniesService companiesService) {
+		this.companiesService = companiesService;
+	}
 
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -30,8 +40,8 @@ public class AdminController implements ServletContextAware {
 	}
 
 	@Autowired
-	public void setCompaniesService(CompaniesService companiesService) {
-		this.companiesService = companiesService;
+	public void setGamesService(GamesService gamesService) {
+		this.gamesService = gamesService;
 	}
 
 	@RequestMapping("/create_developer")
@@ -52,6 +62,14 @@ public class AdminController implements ServletContextAware {
 		}
 
 		return "docreatedeveloper";
+	}
+	
+	@RequestMapping("/adminGames")
+	public String showAdminGames(Model model) {
+		List<Game> games = gamesService.getCurrent();
+		model.addAttribute("games", games);
+		
+		return "admingames";
 	}
 
 	@RequestMapping("/addPicture")

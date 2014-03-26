@@ -62,4 +62,9 @@ public class GamesService {
 				
 		return game;
 	}
+
+	public List<Game> getCurrent() {
+		return gamesDao.getAllGames();
+	}
+
 }
