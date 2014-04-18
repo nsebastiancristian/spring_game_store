@@ -84,12 +84,13 @@ public class AdminController implements ServletContextAware {
 		String webRootPath = servletContext.getRealPath("/");
 		webRootPath = webRootPath + "resources\\images\\";
 		String ImageFolderPath = webRootPath + "My Image Folder";
+		System.out.println(ImageFolderPath);
 		new File(ImageFolderPath).mkdir();
 
 		try {
 			if (!image.isEmpty()) {
 				FileHandler.validateImage(image);
-				FileHandler.saveImage("myupload.jpg", image, webRootPath);
+				FileHandler.saveImage("myupload.jpg", image, ImageFolderPath);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -25,7 +25,7 @@ public class FileHandler {
 	
 	public static void saveImage(String filename, MultipartFile image, String webRootPath) throws Exception{
 		try {
-			File file = new File(webRootPath + filename);
+			File file = new File(webRootPath + "/" + filename);
 			
 			if (!file.exists()) {
 	            file.createNewFile();
