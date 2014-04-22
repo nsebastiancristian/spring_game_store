@@ -46,12 +46,10 @@
 			<td class="tableTextOnTop">Description:</td>
 			<td><form:textarea path="description" rows="12" cols="20"/></td>
 		</tr>
-		<%-- 
 		<tr>
 			<td>Added on:</td>
 			<td><form:input path="dateAdded"/></td>
 		</tr>
-		--%>
 		<tr>
 			<td colspan="2" class="tableTextOnCenter"> <input type="submit" value="Press da Button! I dare you!"/></td>
 		</tr>
