@@ -1,6 +1,10 @@
 package com.sebastian.web.gamestore.dao;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Game {
 
@@ -8,6 +12,7 @@ public class Game {
 	private String name;
 	private Company developer;
 	private Company publisher;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateAdded;
 	private Date dateReleased;
 	boolean wishlisted = false;

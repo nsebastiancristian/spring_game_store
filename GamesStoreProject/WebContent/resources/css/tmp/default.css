@@ -1,0 +1,17 @@
+@CHARSET "ISO-8859-1";
+
+.red {
+	background-color: blue;
+}
+
+#whiteColor {
+	color: white;
+}
+
+.tableTextOnTop {
+	vertical-align: top;
+}
+
+.tableTextOnCenter {
+	text-align: center;
+}
