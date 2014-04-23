@@ -15,3 +15,12 @@
 .tableTextOnCenter {
 	text-align: center;
 }
+
+.ui-widget {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 0.8em;
+}
+
+#formGame td {
+	padding: 10px;
+}

@@ -18,11 +18,18 @@
 <script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.core.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.widget.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.datepicker.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.effect.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.effect-bounce.js"/>'></script>
 
 <!-- SCRIPTS -->
 <script>
 	$(function() {
-		$( "#datepicker" ).datepicker();
+		$( "#datepicker" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			//showAnim: 'drop'
+		});
+		$( "#datepicker" ).datepicker( "option", "showAnim", 'bounce' );
 	});
 </script>
 
@@ -52,7 +59,7 @@
 --%>
 
 <form:form method="POST" action="${pageContext.request.contextPath}/doAddGameForm" commandName="game">
-	<table>
+	<table id="formGame">
 		<tr>
 			<td>Title:</td>
 			<td>  <form:input path="name" size="26" />  </td>
