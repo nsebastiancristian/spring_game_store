@@ -9,7 +9,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add a new game</title>
 
+<!-- STYLESHEETS -->
+<link rel="stylesheet" type="text/css" href='<c:url value="/static/css/tmp/jquery_ui/jquery.ui.all.css"/>'>
 <link rel="stylesheet" type="text/css" href='<c:url value="/static/css/tmp/default.css"/>'>
+
+<!-- JSCRIPT LIBS -->
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery-1.10.2.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.core.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.widget.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.datepicker.js"/>'></script>
+
+<!-- SCRIPTS -->
+<script>
+	$(function() {
+		$( "#datepicker" ).datepicker();
+	});
+</script>
 
 </head>
 <body>
@@ -48,7 +63,7 @@
 		</tr>
 		<tr>
 			<td>Added on:</td>
-			<td><form:input path="dateAdded"/></td>
+			<td><form:input path="dateAdded" id="datepicker" /></td>
 		</tr>
 		<tr>
 			<td colspan="2" class="tableTextOnCenter"> <input type="submit" value="Press da Button! I dare you!"/></td>

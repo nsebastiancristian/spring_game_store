@@ -21,7 +21,7 @@ public class AdminTmpController {
 
 	@InitBinder(value = "game")
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
         binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(dateFormat, true));
     }
@@ -36,7 +36,7 @@ public class AdminTmpController {
 	}
 
 	@RequestMapping("/doAddGameForm")
-	public String doAddGameForm(  @ModelAttribute("game") Game game, BindingResult result) {
+	public String doAddGameForm(@ModelAttribute("game") Game game, BindingResult result) {
 		if (result.hasErrors()) {
 			List<ObjectError> errors = result.getAllErrors();
 			

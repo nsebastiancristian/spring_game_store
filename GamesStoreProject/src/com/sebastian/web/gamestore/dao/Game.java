@@ -12,7 +12,7 @@ public class Game {
 	private String name;
 	private Company developer;
 	private Company publisher;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	//@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateAdded;
 	private Date dateReleased;
 	boolean wishlisted = false;
