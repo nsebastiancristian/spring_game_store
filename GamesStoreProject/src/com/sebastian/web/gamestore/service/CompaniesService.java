@@ -1,5 +1,7 @@
 package com.sebastian.web.gamestore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +19,13 @@ public class CompaniesService {
 	}
 	
 	public boolean createCompany(Company company) {
+
 		return companiesDao.CreateCompany(company);
+	}
+	
+	public List<Company> getDevelopers() {
+		
+		return companiesDao.getDevelopers();
 	}
 	
 }
