@@ -48,6 +48,7 @@ public class AdminTmpController {
 		System.out.println("Name:" + game.getName());
 		System.out.println("Description:" + game.getDescription());
 		System.out.println("Added On:" + game.getDateAdded());
+		System.out.println("Released On:" + game.getDateReleased());
 		return "doAddGame";
 	}
 }

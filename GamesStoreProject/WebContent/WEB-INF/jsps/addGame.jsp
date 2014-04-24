@@ -24,39 +24,24 @@
 <!-- SCRIPTS -->
 <script>
 	$(function() {
-		$( "#datepicker" ).datepicker({
+		$( "#datepickerAdded" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
-			//showAnim: 'drop'
+			showAnim: 'bounce'
 		});
-		$( "#datepicker" ).datepicker( "option", "showAnim", 'bounce' );
+		
+		$( "#datepickerReleased" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			showAnim: 'bounce'
+		});
 	});
 </script>
 
 </head>
 <body>
 
-<%--
-<form:form method="POST" action="${pageContext.request.contextPath}/doAddGameForm" commandName="game" >
-	<table>
-		<tr>
-			<td>Title:</td>
-			<td>  <form:input path="name" size="26" />  </td>
-		</tr>
-		<tr>
-			<td class="tableTextOnTop">Description:</td>
-			<td><form:textarea path="description" rows="12" cols="20"/></td>
-		</tr>
-		<tr>
-			<td>Added on:</td>
-			<td><form:input path="dateAdded"/></td>
-		</tr>
-		<tr>
-			<td colspan="2" class="tableTextOnCenter"> <input type="submit" value="Press da Button! I dare you!"/></td>
-		</tr>
-	</table>
-</form:form>
---%>
+
 
 <form:form method="POST" action="${pageContext.request.contextPath}/doAddGameForm" commandName="game">
 	<table id="formGame">
@@ -70,7 +55,11 @@
 		</tr>
 		<tr>
 			<td>Added on:</td>
-			<td><form:input path="dateAdded" id="datepicker" /></td>
+			<td><form:input path="dateAdded" id="datepickerAdded" /></td>
+		</tr>
+		<tr>
+			<td>Released on:</td>
+			<td><form:input path="dateReleased" id="datepickerReleased" /></td>
 		</tr>
 		<tr>
 			<td colspan="2" class="tableTextOnCenter"> <input type="submit" value="Press da Button! I dare you!"/></td>
