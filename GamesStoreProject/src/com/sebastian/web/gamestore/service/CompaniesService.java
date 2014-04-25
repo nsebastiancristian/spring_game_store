@@ -27,5 +27,15 @@ public class CompaniesService {
 		
 		return companiesDao.getDevelopers();
 	}
+
+	public List<Company> getPublishers() {
+
+		return companiesDao.getPublishers();
+	}
+
+	public Company getCompanyById(Integer id) {
+	
+		return companiesDao.getCompanyById(id);
+	}
 	
 }

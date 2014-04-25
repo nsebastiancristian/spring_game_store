@@ -67,4 +67,7 @@ public class GamesService {
 		return gamesDao.getAllGames();
 	}
 
+	public void addGame(Game game) {
+		gamesDao.addGame(game);
+	}
 }

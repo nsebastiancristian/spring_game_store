@@ -66,6 +66,10 @@
 			<td><form:select path="developer" items="${developers}"></form:select></td>
 		</tr>
 		<tr>
+			<td>Publisher:</td>
+			<td><form:select path="publisher" items="${publishers}"></form:select></td>
+		</tr>
+		<tr>
 			<td colspan="2" class="tableTextOnCenter"> <input type="submit" value="Press da Button! I dare you!"/></td>
 		</tr>
 	</table>

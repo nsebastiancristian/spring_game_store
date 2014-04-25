@@ -11,12 +11,10 @@ public class Company {
 	}
 
 	public Company(String name) {
-		super();
 		this.name = name;
 	}
 
 	public Company(String name, boolean isPublisher) {
-		super();
 		this.name = name;
 		this.isPublisher = isPublisher;
 	}

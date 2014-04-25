@@ -2,12 +2,14 @@ package com.sebastian.web.gamestore.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -269,5 +271,18 @@ public class GamesDao {
 				
 			}
 		}
+
+	public void addGame(Game game) {
+		//BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(game);
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("name", game.getName());
+		params.addValue("description", game.getDescription());
+		params.addValue("addedOn", game.getDateAdded(), Types.DATE);
+		params.addValue("releasedOn", game.getDateReleased(), Types.DATE);
+		params.addValue("idDeveloper", game.getDeveloper().getId(), Types.INTEGER);
+		params.addValue("idPublisher", game.getPublisher().getId(), Types.INTEGER);
+		
+		jdbc.update("insert into games (name,  addedOn, releasedOn, description, idDeveloper, idPublisher) values (:name, :addedOn, :releasedOn, :description, :idDeveloper, :idPublisher)", params);
+	}
 		
 }

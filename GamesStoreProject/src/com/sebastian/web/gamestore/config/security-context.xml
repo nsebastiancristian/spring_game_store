@@ -24,6 +24,7 @@
 		<security:intercept-url pattern="/static/**" access="permitAll" />
 		<security:intercept-url pattern="/addGameForm" access="permitAll" />
 		<security:intercept-url pattern="/doAddGameForm" access="permitAll" />
+		<security:intercept-url pattern="/adminAddUserForm" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/games" access="permitAll" />
 		<security:intercept-url pattern="/game" access="permitAll" />
 		<security:intercept-url pattern="/mygames" access="isAuthenticated()" />

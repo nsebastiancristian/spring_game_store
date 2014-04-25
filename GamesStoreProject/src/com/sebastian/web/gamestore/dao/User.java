@@ -5,6 +5,7 @@ public class User {
 	String email;
 	boolean enabled;
 	String name;
+	boolean isAdmin = false;
 
 	public User() {
 
@@ -52,4 +53,13 @@ public class User {
 		this.name = name;
 	}
 
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	
 }
