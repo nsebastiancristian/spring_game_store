@@ -3,9 +3,10 @@ package com.sebastian.web.gamestore.dao;
 public class User {
 	String username;
 	String email;
-	boolean enabled;
+	String password;
+	boolean enabled = true;
 	String name;
-	boolean isAdmin = false;
+	boolean admin = false;
 
 	public User() {
 
@@ -37,6 +38,14 @@ public class User {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -54,12 +63,18 @@ public class User {
 	}
 
 	public boolean isAdmin() {
-		return isAdmin;
+		return admin;
 	}
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", email=" + email
+				+ ", password=" + password + ", enabled=" + enabled + ", name="
+				+ name + ", isAdmin=" + admin + "]";
+	}
+
 }

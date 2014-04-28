@@ -43,7 +43,7 @@
 
 
 
-<form:form method="POST" action="${pageContext.request.contextPath}/doAddGameForm" commandName="game">
+<form:form method="POST" action="${pageContext.request.contextPath}/doAdminAddGameForm" commandName="game">
 	<table id="formGame">
 		<tr>
 			<td>Title:</td>

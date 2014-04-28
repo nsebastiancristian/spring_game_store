@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -22,12 +24,15 @@ import com.sebastian.web.gamestore.dao.Game;
 import com.sebastian.web.gamestore.dao.User;
 import com.sebastian.web.gamestore.service.CompaniesService;
 import com.sebastian.web.gamestore.service.GamesService;
+import com.sebastian.web.gamestore.service.UsersService;
 
 @Controller
 public class AdminTmpController {
 	
 	private CompaniesService companiesService;
 	private GamesService gamesService;
+	@Autowired
+	private UsersService usersService;
 
 	@Autowired
 	public void setCompaniesService(CompaniesService companiesService) {
@@ -55,8 +60,8 @@ public class AdminTmpController {
 		});
 	}
 
-	@RequestMapping("/addGameForm")
-	public String showAddGameForm(Model model) {
+	@RequestMapping("/adminAddGameForm")
+	public String adminAddGameForm(Model model) {
 		Game game = new Game();
 		model.addAttribute("game", game);
 
@@ -87,10 +92,10 @@ public class AdminTmpController {
 		model.addAttribute("publishers", publishersMap);
 		//=======================================================
 		
-		return "addGame";
+		return "adminAddGameForm";
 	}
 
-	@RequestMapping("/doAddGameForm")
+	@RequestMapping("/doAdminAddGameForm")
 	public String doAddGameForm(@ModelAttribute("game") Game game, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> errors = result.getAllErrors();
@@ -111,14 +116,14 @@ public class AdminTmpController {
 		System.out.println("Developer:" + game.getDeveloper());
 		System.out.println("Publisher:" + game.getPublisher());
 		
-		return "doAddGame";
+		return "doAdminAddGame";
 	}
 	
 	@RequestMapping("/adminAddUserForm")
 	public String addUserForm(Model model) {
 		model.addAttribute("user", new User());
 		
-		return "adminAddUser";
+		return "adminAddUserForm";
 	}
 	
 	@RequestMapping("/doAdminAddUserForm")
@@ -131,6 +136,9 @@ public class AdminTmpController {
 			}
 		}
 		
-		return "doAdminAddUser";
+		System.out.println(user);
+		usersService.createUser(user);
+		
+		return "doAdminAddUserForm";
 	}
 }

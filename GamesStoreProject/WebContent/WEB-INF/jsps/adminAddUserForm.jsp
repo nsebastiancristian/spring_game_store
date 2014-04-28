@@ -29,8 +29,8 @@
 			<td>  <form:input path="name" size="26" />  </td>
 		</tr>
 		<tr>
-			<td><form:radiobutton path="isAdmin" value="true" />Admin</td>
-			<td><form:radiobutton path="isAdmin" value="false" />User</td>
+			<td><form:radiobutton path="admin" value="true" />Admin</td>
+			<td><form:radiobutton path="admin" value="false" />User</td>
 		</tr>
 		<tr>
 			<td colspan="2" class="tableTextOnCenter"> <input type="submit" value="Submit"/></td>

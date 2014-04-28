@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sebastian.web.gamestore.dao.Company;
 import com.sebastian.web.gamestore.dao.Game;
+import com.sebastian.web.gamestore.dao.User;
 import com.sebastian.web.gamestore.service.CompaniesService;
 import com.sebastian.web.gamestore.service.GamesService;
 import com.sebastian.web.helper.FileHandler;
@@ -72,13 +73,13 @@ public class AdminController implements ServletContextAware {
 		return "admingames";
 	}
 
-	@RequestMapping("/addPicture")
+	@RequestMapping("/adminAddPictureForm")
 	public String showAddPicture() {
 
-		return "addPictureForm";
+		return "adminAddPictureForm";
 	}
 
-	@RequestMapping("/doAddPicture")
+	@RequestMapping("/doAdminAddPictureForm")
 	public String doAddPicture(Model model,	@RequestParam(value = "image") MultipartFile image) {
 
 		String webRootPath = servletContext.getRealPath("/");
@@ -96,6 +97,7 @@ public class AdminController implements ServletContextAware {
 			System.out.println(e.getMessage());
 		}
 
-		return "addPictureForm";
+		return "adminAddPictureForm";
 	}
+	
 }

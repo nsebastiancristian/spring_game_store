@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<sf:form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/doAddPicture"  >
+<sf:form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/doAdminAddPictureForm"  >
 <table>
 	<tr>
 		<td><label for="image">Profile image:</label></td>
