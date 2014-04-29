@@ -9,7 +9,8 @@
 </head>
 <body>
 
-The developer has been added to the database
+<p>The developer has been added to the database</p>
 
+<p><a href="<c:url value='/adminHomepage' />" >Go back to the admin page</a></p>
 </body>
 </html>

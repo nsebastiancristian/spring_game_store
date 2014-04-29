@@ -15,7 +15,7 @@
 
 <h2 class="title">Create a new developer/publisher company</h2>
 
-<form class="table" action='<c:url value="/do_create_developer" />' method="post">
+<form class="table" action='<c:url value="/adminAddDeveloperForm" />' method="POST">
 <table>
 	<tr> <td>Company Name</td> <td><input type="text" name="name" size="35" /></td> </tr>
 	<tr> <td></td> <td colspan="2"><input type="submit" value="Create Company"></td> </tr>

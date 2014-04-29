@@ -10,13 +10,13 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sebastian.web.gamestore.dao.Company;
 import com.sebastian.web.gamestore.dao.Game;
-import com.sebastian.web.gamestore.dao.User;
 import com.sebastian.web.gamestore.service.CompaniesService;
 import com.sebastian.web.gamestore.service.GamesService;
 import com.sebastian.web.helper.FileHandler;
@@ -45,13 +45,13 @@ public class AdminController implements ServletContextAware {
 		this.gamesService = gamesService;
 	}
 
-	@RequestMapping("/create_developer")
-	public String createDeveloper() {
-		return "createdeveloper";
+	@RequestMapping(value = "/adminAddDeveloperForm", method = RequestMethod.GET)
+	public String adminAddDeveloperForm() {
+		return "adminAddDeveloperForm";
 	}
 
-	@RequestMapping("/do_create_developer")
-	public String doCreateDeveloper(Model model, Company company) {
+	@RequestMapping(value = "/adminAddDeveloperForm", method = RequestMethod.POST)
+	public String doAdminAddDeveloperForm(Model model, Company company) {
 
 		try {
 			// insert a company into the database
@@ -59,10 +59,10 @@ public class AdminController implements ServletContextAware {
 
 		} catch (DuplicateKeyException e) {
 			System.out.println(e.getMessage());
-			return "createdeveloper";
+			return "adminAddDeveloperForm";
 		}
 
-		return "docreatedeveloper";
+		return "doAdminAddDeveloperForm";
 	}
 	
 	@RequestMapping("/adminGames")

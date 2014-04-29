@@ -27,11 +27,11 @@
 	</p>
 
 	<p>
-		<a href="<c:url value='/userpage' />">Go to the user page.</a>
+		<a href="<c:url value='/userPage' />">Go to the user page.</a>
 	</p>
 
 	<p>
-		<a href="<c:url value='/adminpage' />">Go to the admin page.</a>
+		<a href="<c:url value='/adminHomepage' />">Go to the admin page.</a>
 	</p>
 	
 	<p>

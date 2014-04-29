@@ -12,7 +12,8 @@
 
 <c:choose>
 	<c:when test="${ success == true }">
-		<p>Succesfully submited!</p>
+		<p>The user was succesfully created</p>
+		<p><a href="<c:url value='/' />">Go back to main page</a></p>
 	</c:when>
 	<c:otherwise>
 		<p>An error has occured!</p>

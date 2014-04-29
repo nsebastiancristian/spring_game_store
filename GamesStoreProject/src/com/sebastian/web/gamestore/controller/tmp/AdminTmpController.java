@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sebastian.web.gamestore.dao.Company;
 import com.sebastian.web.gamestore.dao.Game;
@@ -60,7 +59,7 @@ public class AdminTmpController {
 		});
 	}
 
-	@RequestMapping("/adminAddGameForm")
+	@RequestMapping(value = "/adminAddGameForm", method = RequestMethod.GET)
 	public String adminAddGameForm(Model model) {
 		Game game = new Game();
 		model.addAttribute("game", game);
@@ -95,7 +94,7 @@ public class AdminTmpController {
 		return "adminAddGameForm";
 	}
 
-	@RequestMapping("/doAdminAddGameForm")
+	@RequestMapping(value = "/adminAddGameForm", method = RequestMethod.POST)
 	public String doAddGameForm(@ModelAttribute("game") Game game, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> errors = result.getAllErrors();
@@ -119,14 +118,14 @@ public class AdminTmpController {
 		return "doAdminAddGame";
 	}
 	
-	@RequestMapping("/adminAddUserForm")
+	@RequestMapping(value = "/adminAddUserForm", method = RequestMethod.GET)
 	public String addUserForm(Model model) {
 		model.addAttribute("user", new User());
 		
 		return "adminAddUserForm";
 	}
 	
-	@RequestMapping("/doAdminAddUserForm")
+	@RequestMapping(value = "/adminAddUserForm", method = RequestMethod.POST)
 	public String doAddUserForm(@ModelAttribute("user") User user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> errors = result.getAllErrors();

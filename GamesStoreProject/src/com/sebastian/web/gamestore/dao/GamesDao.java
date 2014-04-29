@@ -282,7 +282,7 @@ public class GamesDao {
 		params.addValue("idDeveloper", game.getDeveloper().getId(), Types.INTEGER);
 		params.addValue("idPublisher", game.getPublisher().getId(), Types.INTEGER);
 		
-		jdbc.update("insert into games (name,  addedOn, releasedOn, description, idDeveloper, idPublisher) values (:name, :addedOn, :releasedOn, :description, :idDeveloper, :idPublisher)", params);
+		jdbc.update("insert into games (name,  addedOn, releasedOn, description, idDeveloper, idPublisher) values (:name, NOW(), :releasedOn, :description, :idDeveloper, :idPublisher)", params);
 	}
 		
 }

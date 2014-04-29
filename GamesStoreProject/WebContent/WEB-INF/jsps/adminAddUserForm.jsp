@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form:form method="POST" action="${pageContext.request.contextPath}/doAdminAddUserForm" commandName="user">
+<form:form method="POST" action="${pageContext.request.contextPath}/adminAddUserForm" commandName="user">
 	<table id="formGame">
 		<tr>
 			<td>Username:</td>

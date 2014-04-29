@@ -43,7 +43,7 @@
 
 
 
-<form:form method="POST" action="${pageContext.request.contextPath}/doAdminAddGameForm" commandName="game">
+<form:form method="POST" action="${pageContext.request.contextPath}/adminAddGameForm" commandName="game">
 	<table id="formGame">
 		<tr>
 			<td>Title:</td>
@@ -52,10 +52,6 @@
 		<tr>
 			<td class="tableTextOnTop">Description:</td>
 			<td><form:textarea path="description" rows="12" cols="20"/></td>
-		</tr>
-		<tr>
-			<td>Added on:</td>
-			<td><form:input path="dateAdded" id="datepickerAdded" /></td>
 		</tr>
 		<tr>
 			<td>Released on:</td>

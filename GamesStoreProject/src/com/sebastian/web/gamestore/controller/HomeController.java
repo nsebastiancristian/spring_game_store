@@ -20,13 +20,13 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/userpage")
+	@RequestMapping("/userPage")
 	public String showUserPage() {
-		return "userpage";
+		return "userPage";
 	}
 	
-	@RequestMapping("/adminpage")
+	@RequestMapping("/adminHomepage")
 	public String showAdminPage() {
-		return "adminpage";
+		return "adminHomepage";
 	}
 }
