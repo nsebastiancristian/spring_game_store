@@ -37,4 +37,21 @@ public class FileHandler {
 			throw new Exception("Unable to save image", e);
 		}
 	}
+	
+	/**
+	 * This method converts a file/folder name into an accepted name for the Windows fyle handling system. It does this by stripping all the unwanted chars
+	 * from the name and replacing them with spaces
+	 * @param name - The name of the file/folder
+	 * @return - A valid string containing the transformed input string
+	 */
+	public static String stripNameForbiddenChars(String name) {
+		char[] forbiddenChars = {'\\', '/', ':', '*', '?', '"', '<', '>', '|'};
+		String returnName = name;
+		
+		for(char replaced: forbiddenChars) {
+			returnName = returnName.replace(replaced, ' ');
+		}
+		
+		return returnName;
+	}
 }

@@ -74,28 +74,15 @@ public class AdminController implements ServletContextAware {
 	}
 
 	@RequestMapping("/adminAddPictureForm")
-	public String showAddPicture() {
+	public String adminAddPictureForm() {
 
 		return "adminAddPictureForm";
 	}
 
 	@RequestMapping("/doAdminAddPictureForm")
-	public String doAddPicture(Model model,	@RequestParam(value = "image") MultipartFile image) {
+	public String doAdminAddPictureForm(Model model,	@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "gameId") int gameId) {
 
-		String webRootPath = servletContext.getRealPath("/");
-		webRootPath = webRootPath + "resources\\images\\";
-		String ImageFolderPath = webRootPath + "My Image Folder";
-		System.out.println(ImageFolderPath);
-		new File(ImageFolderPath).mkdir();
-
-		try {
-			if (!image.isEmpty()) {
-				FileHandler.validateImage(image);
-				FileHandler.saveImage("myupload.jpg", image, ImageFolderPath);
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		gamesService.saveImage(image, gameId);
 
 		return "adminAddPictureForm";
 	}

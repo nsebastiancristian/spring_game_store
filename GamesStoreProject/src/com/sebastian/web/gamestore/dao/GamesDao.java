@@ -284,5 +284,52 @@ public class GamesDao {
 		
 		jdbc.update("insert into games (name,  addedOn, releasedOn, description, idDeveloper, idPublisher) values (:name, NOW(), :releasedOn, :description, :idDeveloper, :idPublisher)", params);
 	}
+
+	public String getGameName(int gameId) {
+		MapSqlParameterSource params = new MapSqlParameterSource("id", gameId);
+		String name = (String) jdbc.queryForObject("select name from games where id = :id", params, String.class);
+		
+		return name;
+	}
+	
+	/**
+	 * Adds an image filename to the database. The difference between this version of the method and the 3 paramether version is that this can be called if we want to 
+	 * save a picture that will be featured on the game's home page
+	 * 
+	 * @param name - The name of the game that will be the first part of the file name
+	 * @param gameId - The id of the game which the picture contains
+	 * 
+	 * @return - A string that contains the complete filename of the pic that was just inserted to the database (the complete name consists of the name of the game stripped
+	 * of forbidden chars and suffixed by '_x' where x is the id of the row that was just inserted
+	 */
+	public String addImageName(String name, int gameId) {
+		return addImageName(name, gameId, 0);
+	}
+	
+	/**
+	 * Adds an image filename to the database
+	 * 
+	 * @param name - The name of the game that will be the first part of the file name
+	 * @param gameId - The id of the game which the picture contains
+	 * @param userId - The id of the user that posted the pic. If the pic will be on the home page of the game then the userId is 0
+	 * 
+	 * @return - A string that contains the complete filename of the pic that was just inserted to the database (the complete name consists of the name of the game stripped
+	 * of forbidden chars and suffixed by '_x' where x is the id of the row that was just inserted
+	 */
+	public String addImageName(String name, int gameId, int userId) {
+		MapSqlParameterSource params = new MapSqlParameterSource("name", name);
+		params.addValue("gameId", gameId);
+		params.addValue("userId", userId);
+		
+		jdbc.update("insert into pics (filename, gameId, userId) values (:name, :gameId, :userId)", params);
+		int id = jdbc.queryForObject( "select last_insert_id()", new MapSqlParameterSource(), Integer.class );
+		name = name + "_" + String.valueOf(id);
+
+		params = new MapSqlParameterSource("name", name);
+		params.addValue("gameId", gameId);
+		jdbc.update("update pics set filename=:name where gameId=:gameId", params);
+		
+		return name + ".jpg";
+	}
 		
 }

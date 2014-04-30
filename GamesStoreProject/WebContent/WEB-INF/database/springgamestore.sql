@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gazda: 127.0.0.1
--- Timp de generare: 20 Mar 2014 la 16:38
+-- Timp de generare: 30 Apr 2014 la 15:24
 -- Versiune server: 5.6.11
 -- Versiune PHP: 5.5.1
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
   `name` varchar(60) DEFAULT NULL,
   `isPublisher` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Flag to see that this company is/isn''t publisher',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='List of all the game developer/publisher companies' AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='List of all the game developer/publisher companies' AUTO_INCREMENT=14 ;
 
 --
 -- Salvarea datelor din tabel `companies`
@@ -46,7 +46,10 @@ INSERT INTO `companies` (`id`, `name`, `isPublisher`) VALUES
 (6, 'Westwood', 0),
 (7, 'Bullfrog', 0),
 (8, 'Creative Assembly', 0),
-(9, 'Sega', 1);
+(9, 'Sega', 1),
+(11, 'Team 17', 0),
+(12, 'EA', 0),
+(13, 'Sierra Studios', 0);
 
 -- --------------------------------------------------------
 
@@ -63,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `games` (
   `idPublisher` int(11) NOT NULL COMMENT 'The publisher''s id taken from the companies table.',
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='The list of games in the database' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='The list of games in the database' AUTO_INCREMENT=9 ;
 
 --
 -- Salvarea datelor din tabel `games`
@@ -74,7 +77,8 @@ INSERT INTO `games` (`id`, `name`, `addedOn`, `releasedOn`, `idDeveloper`, `idPu
 (2, 'Rome: Total War', NULL, NULL, 8, 9, ''),
 (3, 'Crusader Kings 2', NULL, NULL, 0, 0, ''),
 (4, 'Warcraft III', NULL, NULL, 0, 0, ''),
-(5, 'Hearts of Iron III', NULL, NULL, 0, 0, '');
+(5, 'Hearts of Iron III', NULL, NULL, 0, 0, ''),
+(8, 'Morrowind', '2014-04-29', '1994-04-02', 4, 9, 'A very good rpg');
 
 -- --------------------------------------------------------
 
@@ -102,6 +106,34 @@ INSERT INTO `ownedgames` (`games_id`, `username`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structura de tabel pentru tabelul `pics`
+--
+
+CREATE TABLE IF NOT EXISTS `pics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(20) NOT NULL,
+  `gameId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Stores the name of the picture files on disk' AUTO_INCREMENT=10 ;
+
+--
+-- Salvarea datelor din tabel `pics`
+--
+
+INSERT INTO `pics` (`id`, `filename`, `gameId`, `userId`) VALUES
+(2, 'Rome  Total War_3', 2, 0),
+(3, 'Rome  Total War_3', 2, 0),
+(4, 'Crusader Kings 2_9', 3, 0),
+(5, 'Crusader Kings 2_9', 3, 0),
+(6, 'Crusader Kings 2_9', 3, 0),
+(7, 'Crusader Kings 2_9', 3, 1),
+(8, 'Crusader Kings 2_9', 3, 0),
+(9, 'Crusader Kings 2_9', 3, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Structura de tabel pentru tabelul `users`
 --
 
@@ -123,7 +155,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`username`, `password`, `enabled`, `authority`, `name`, `email`) VALUES
 ('Administrator', 'hellohello', 1, 'ROLE_ADMIN', 'The Administrator', 'seba_4_all@yahoo.com'),
 ('andy', 'andy123', 1, 'ROLE_USER', 'Adrian Toma', 'adrian@yahoo.com'),
-('Mike', 'apass', 1, 'ROLE_ADMIN', 'Michellangelo', 'mike@yahoo.com');
+('Mike', 'apass', 1, 'ROLE_ADMIN', 'Michellangelo', 'mike@yahoo.com'),
+('Sebas', 'maverik123', 1, 'ROLE_USER', 'Sebastian', 'seba@yahoo.com');
 
 -- --------------------------------------------------------
 

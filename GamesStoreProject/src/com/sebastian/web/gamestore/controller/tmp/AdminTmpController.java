@@ -95,7 +95,7 @@ public class AdminTmpController {
 	}
 
 	@RequestMapping(value = "/adminAddGameForm", method = RequestMethod.POST)
-	public String doAddGameForm(@ModelAttribute("game") Game game, BindingResult result, Model model) {
+	public String doAdminAddGameForm(@ModelAttribute("game") Game game, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> errors = result.getAllErrors();
 
@@ -119,16 +119,16 @@ public class AdminTmpController {
 	}
 	
 	@RequestMapping(value = "/adminAddUserForm", method = RequestMethod.GET)
-	public String addUserForm(Model model) {
+	public String adminAddUserForm(Model model) {
 		model.addAttribute("user", new User());
 		
-		return "adminAddUserForm";
+		return "adminAddUserForm"; 
 	}
 	
 	@RequestMapping(value = "/adminAddUserForm", method = RequestMethod.POST)
-	public String doAddUserForm(@ModelAttribute("user") User user, BindingResult result, Model model) {
+	public String doAdminAddUserForm(@ModelAttribute("user") User user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			List<ObjectError> errors = result.getAllErrors();
+			List<ObjectError> errors   = result.getAllErrors();
 
 			for (ObjectError error : errors) {
 				System.out.println(error);
