@@ -102,10 +102,11 @@ public class GamesService  implements ServletContextAware {
 	public void saveImage(MultipartFile image, int gameId, int userId) {
 		System.out.println("The value of the id of the game is " + gameId );
 		
+		//Construct the path to the image folder
 		String webRootPath = servletContext.getRealPath("/");
 		webRootPath = webRootPath + "resources\\images\\";
 		
-		String imageFileName = FileHandler.stripNameForbiddenChars(getGameName(gameId));
+		String imageFileName = FileHandler.stripNameForbiddenChars(getGameName(gameId));	//this will actually be the name of the file folder
 		String ImageFolderPath = webRootPath  + imageFileName;
 		
 		System.out.println(ImageFolderPath);
@@ -126,4 +127,20 @@ public class GamesService  implements ServletContextAware {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public List<String> getPicsForGame(int gameId) {
+		String gameName = gamesDao.getGameName(gameId);
+		gameName = FileHandler.stripNameForbiddenChars(gameName);
+		
+		//get a list with the file names of the photos
+		List<String> pics = gamesDao.getPicsForGame(gameId);
+		//reconstruct the strings with the file names by appending the path to them before the name of each file
+		for(int i = 0; i < pics.size(); i++) {
+			String fullPath = "/static/images/" + gameName + "/" + pics.get(i);
+			pics.set(i, fullPath);
+		}
+		
+		return pics;
+	}
+	
 }

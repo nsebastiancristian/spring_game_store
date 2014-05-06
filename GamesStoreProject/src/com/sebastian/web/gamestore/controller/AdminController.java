@@ -73,16 +73,23 @@ public class AdminController implements ServletContextAware {
 		return "admingames";
 	}
 
-	@RequestMapping("/adminAddPictureForm")
-	public String adminAddPictureForm() {
-
+	@RequestMapping(value = "/adminAddPictureForm", method = RequestMethod.GET)
+	public String adminAddPictureForm(Model model, @RequestParam(value = "gameId") int gameId) {
+		List<String> pics = gamesService.getPicsForGame(gameId);
+		
+		model.addAttribute("pics", pics);
+		
 		return "adminAddPictureForm";
 	}
 
-	@RequestMapping("/doAdminAddPictureForm")
-	public String doAdminAddPictureForm(Model model,	@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "gameId") int gameId) {
-
-		gamesService.saveImage(image, gameId);
+	@RequestMapping(value = "/adminAddPictureForm", method = RequestMethod.POST)
+	public String doAdminAddPictureForm(Model model,	@RequestParam(value = "image") MultipartFile[] images, @RequestParam(value = "gameId") int gameId) {
+		List<String> pics = gamesService.getPicsForGame(gameId);
+		model.addAttribute("pics", pics);
+		
+		for (MultipartFile image : images) {
+			gamesService.saveImage(image, gameId);
+		}
 
 		return "adminAddPictureForm";
 	}

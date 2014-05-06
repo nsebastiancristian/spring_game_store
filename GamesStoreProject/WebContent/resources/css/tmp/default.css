@@ -24,3 +24,20 @@
 #formGame td {
 	padding: 10px;
 }
+
+
+.clonedInput {
+	margin: 20px 20px;
+}
+
+#addPicForm label {
+	margin-right: 10px;
+}
+
+#picContainer {
+	width: 700px;
+}
+
+#picContainer img {
+	float: left;
+}

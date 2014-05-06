@@ -11,41 +11,66 @@
 
 <script type="text/javascript" src='<c:url value="/static/script/tmp/jquery-1.10.2.js"/>'></script>
 
+<link rel="stylesheet" type="text/css" href='<c:url value="/static/css/tmp/default.css"/>'>
+
+
 </head>
 <body>
 <script type="text/javascript">
-	var inputIdx = 1;
+	
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+		
+	function changePhotoDim(start, n) {
+		var choice;
+		
+		for(var i = start; i < (start + n); i++) {
+			choice = getRandomInt(1,2);
+			
+			switch(choice) {
+				case 1: {	//big picture
+					    $("#picContainer img").eq(i).css("width", "100%");
+					    break; 
+				    }
+				case 2: {  //two small equal sized pictures
+					    $("#picContainer img").eq(i).css("width", "50%");
+					    $("#picContainer img").eq(++i).css("width", "50%");
+					    break; 
+				    }
+			}
+		}
+	}
 	
 	$(function() {
-		$("a#addInput").click(function() {
-			inputIdx++;
-			var inputName = "image_" + inputIdx;
+	    changePhotoDim(0,9);
+		
+		$("#addInput").click(function() {
+			var num     = $('.clonedInput').length; 
+			var newNum  = new Number(num + 1); 
 			
-			var strInput = "<tr id='last'>";
-			strInput += "<td><label='" + inputName + "' > Image: </label> </td>";
-			strInput += "<td><input='" + inputName + "' type='file' /></td>";
-			strInput += "</tr>";
-			var newTr = $(strInput);
+			var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
 			
-			$("tr#last").before(newTr).removeAttr("id");
+			$('#input' + num).after(newElem);
 		});
 	});
 </script>
 
-<sf:form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/doAdminAddPictureForm"  >
-<table>
-	<tr>
-		<td><label for="image_1">Image:</label></td>
-		<td><input name="image_1" type="file"/></td>
-	</tr>
-	<tr id="last">
-		<td colspan="2"><input type="hidden" name="gameId" value="3" /> </td>
-	</tr>
-	<tr>
-		<td colspan="2"><input type="submit" value="Upload image"/></td>
-	</tr>
+<sf:form id="addPicForm" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/adminAddPictureForm"  >
+		<div id='input1' class='clonedInput'>
+			<label for="image">Image:</label>
+			<input name="image" type="file"/>
+		</div>
+		<input type="hidden" name="gameId" value="9" /> 
+		<input type="submit" value="Upload image"/>
 </table>
 </sf:form>
-<p><a id="addInput" href="#">Add another file</a></p>
+<p><input type="button" id="addInput" value="Add another file" /></p>
+
+<div id="picContainer">
+		<c:forEach items="${pics}" var="picPath">
+			<img src='<c:url value="${picPath}" />' />
+		</c:forEach>
+</div>
 </body>
 </html>

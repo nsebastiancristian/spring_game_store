@@ -3,13 +3,14 @@ package com.sebastian.web.gamestore.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -326,10 +327,26 @@ public class GamesDao {
 		name = name + "_" + String.valueOf(id);
 
 		params = new MapSqlParameterSource("name", name);
-		params.addValue("gameId", gameId);
-		jdbc.update("update pics set filename=:name where gameId=:gameId", params);
+		params.addValue("id", id);
+		jdbc.update("update pics set filename=:name where id=:id", params);
 		
 		return name + ".jpg";
+	}
+
+	public List<String> getPicsForGame(int gameId) {
+		final List<String> pictureNames = new ArrayList<String>();
+		MapSqlParameterSource params = new MapSqlParameterSource("gameId", gameId);
+		
+		jdbc.query("select * from pics where gameId=:gameId", params, new RowCallbackHandler() {
+			
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				String filename = rs.getString("filename") + ".jpg";
+				pictureNames.add(filename);
+			}
+		});
+		
+		return pictureNames;
 	}
 		
 }
