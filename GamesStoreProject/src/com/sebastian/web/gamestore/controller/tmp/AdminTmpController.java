@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sebastian.web.gamestore.dao.Company;
 import com.sebastian.web.gamestore.dao.Game;
@@ -126,7 +128,7 @@ public class AdminTmpController {
 	}
 	
 	@RequestMapping(value = "/adminAddUserForm", method = RequestMethod.POST)
-	public String doAdminAddUserForm(@ModelAttribute("user") User user, BindingResult result, Model model) {
+	public String doAdminAddUserForm(@ModelAttribute("user") User user, BindingResult result, Model model, @RequestParam(value = "image") MultipartFile image) {
 		if (result.hasErrors()) {
 			List<ObjectError> errors   = result.getAllErrors();
 
@@ -136,7 +138,7 @@ public class AdminTmpController {
 		}
 		
 		System.out.println(user);
-		usersService.createUser(user);
+		usersService.createUser(user, image);
 		
 		return "doAdminAddUserForm";
 	}

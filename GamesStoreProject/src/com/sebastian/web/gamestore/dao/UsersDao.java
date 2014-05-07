@@ -1,6 +1,7 @@
 package com.sebastian.web.gamestore.dao;
 
 import java.sql.Types;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 @Component("usersDao")
@@ -30,6 +33,16 @@ private NamedParameterJdbcTemplate jdbc;
 		params.addValue("email", user.getEmail());
 		
 		jdbc.update("insert into users (username, password, authority, name, email) values (:username, :password, :authority, :name, :email)", params);
+	}
+
+	public String addImageName(String imageFileName, String username) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("username", username);
+		params.addValue("avatar", imageFileName);
+		
+		jdbc.update("insert into avatars (username, avatar) values (:username, :avatar)", params);
+		
+		return imageFileName + ".jpg";
 	}
 
 }

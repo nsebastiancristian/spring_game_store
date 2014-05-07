@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form:form method="POST" action="${pageContext.request.contextPath}/adminAddUserForm" commandName="user">
+<form:form method="POST" action="${pageContext.request.contextPath}/adminAddUserForm" commandName="user" enctype="multipart/form-data">
 	<table id="formGame">
 		<tr>
 			<td>Username:</td>
@@ -31,6 +31,10 @@
 		<tr>
 			<td><form:radiobutton path="admin" value="true" />Admin</td>
 			<td><form:radiobutton path="admin" value="false" />User</td>
+		</tr>
+		<tr>
+			<td>Image:</td>
+			<td><input name="image" type="file"/></td>
 		</tr>
 		<tr>
 			<td colspan="2" class="tableTextOnCenter"> <input type="submit" value="Submit"/></td>

@@ -4,15 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
+import javax.swing.plaf.basic.BasicComboBoxUI.KeyHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 @Component("gamesDao")
@@ -321,11 +325,18 @@ public class GamesDao {
 		MapSqlParameterSource params = new MapSqlParameterSource("name", name);
 		params.addValue("gameId", gameId);
 		params.addValue("userId", userId);
+		params.addValue("dateAdded", new java.sql.Date(new Date().getTime()), Types.TIMESTAMP);
 		
-		jdbc.update("insert into pics (filename, gameId, userId) values (:name, :gameId, :userId)", params);
-		int id = jdbc.queryForObject( "select last_insert_id()", new MapSqlParameterSource(), Integer.class );
+		//we need the id of the newly inserted row so we use GeneratedKeyHolder for this
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update("insert into pics (filename, gameId, userId, dateAdded) values (:name, :gameId, :userId, :dateAdded)", params, keyHolder, new String[] {"id"});
+		
+		//int id = jdbc.queryForObject( "select last_insert_id()", new MapSqlParameterSource(), Integer.class );
+		//construct the name of the file based on the name of the game combined with the id
+		int id = keyHolder.getKey().intValue();
 		name = name + "_" + String.valueOf(id);
 
+		//update the database with the constructed filename
 		params = new MapSqlParameterSource("name", name);
 		params.addValue("id", id);
 		jdbc.update("update pics set filename=:name where id=:id", params);
@@ -334,10 +345,21 @@ public class GamesDao {
 	}
 
 	public List<String> getPicsForGame(int gameId) {
+		return getPicsForGame(gameId, false);
+	}
+	
+	/**
+	 * Get a list of filenames for the game with the given id, ordered asc or desc by the date when they were added
+	 * @param gameId - Id of the game
+	 * @param ascDateAdded - If it's true then the list will be ordered based on the date the pictures were added in ASC order, if it is false the list will be ordered in DESC order
+	 * @return - List of strings that represent the filenames of the pics for that game
+	 */
+	public List<String> getPicsForGame(int gameId, boolean ascDateAdded) {
 		final List<String> pictureNames = new ArrayList<String>();
 		MapSqlParameterSource params = new MapSqlParameterSource("gameId", gameId);
 		
-		jdbc.query("select * from pics where gameId=:gameId", params, new RowCallbackHandler() {
+		String sql = "select * from pics where gameId=:gameId order by dateAdded " + (ascDateAdded == true? "ASC" : "DESC");
+		jdbc.query(sql, params, new RowCallbackHandler() {
 			
 			@Override
 			public void processRow(ResultSet rs) throws SQLException {

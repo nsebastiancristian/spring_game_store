@@ -34,7 +34,7 @@
 		
 		
 		<security:intercept-url pattern="/adminHomepage" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/adminGames" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/adminShowGames" access="hasRole('ROLE_ADMIN')" />
 		
 		<security:intercept-url pattern="/adminAddPictureForm" access="hasRole('ROLE_ADMIN')" />
 		

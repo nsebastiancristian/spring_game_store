@@ -65,12 +65,12 @@ public class AdminController implements ServletContextAware {
 		return "doAdminAddDeveloperForm";
 	}
 	
-	@RequestMapping("/adminGames")
-	public String showAdminGames(Model model) {
+	@RequestMapping("/adminShowGames")
+	public String adminShowGames(Model model) {
 		List<Game> games = gamesService.getCurrent();
 		model.addAttribute("games", games);
 		
-		return "admingames";
+		return "adminShowGames";
 	}
 
 	@RequestMapping(value = "/adminAddPictureForm", method = RequestMethod.GET)
@@ -84,12 +84,16 @@ public class AdminController implements ServletContextAware {
 
 	@RequestMapping(value = "/adminAddPictureForm", method = RequestMethod.POST)
 	public String doAdminAddPictureForm(Model model,	@RequestParam(value = "image") MultipartFile[] images, @RequestParam(value = "gameId") int gameId) {
-		List<String> pics = gamesService.getPicsForGame(gameId);
-		model.addAttribute("pics", pics);
-		
+		//save the images to the database (and hard drive) first
 		for (MultipartFile image : images) {
 			gamesService.saveImage(image, gameId);
 		}
+		
+		//than get the pics 
+		List<String> pics = gamesService.getPicsForGame(gameId);
+		
+		model.addAttribute("pics", pics);
+		
 
 		return "adminAddPictureForm";
 	}

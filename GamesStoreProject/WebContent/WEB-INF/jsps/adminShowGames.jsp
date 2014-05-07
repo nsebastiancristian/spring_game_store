@@ -8,20 +8,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Games Admin Page</title>
 
-<script type="text/javascript" src='<c:url value="/static/script/jquery.js"/>'></script>
+<!-- JSCRIPT LIBS -->
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery-1.10.2.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.core.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.widget.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.mouse.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/static/script/tmp/jquery_ui/jquery.ui.draggable.js"/>'></script>
+
 <script type="text/javascript" src='<c:url value="/static/script/admingames.js"/>'></script>
 
 <link rel="stylesheet" type="text/css"
 	href='<c:url value="/static/css/games_admin_page.css"/>'>
 </head>
 <body>
-
+<script type="text/javascript">
+	$(function() {
+		$("#console").draggable();
+	});
+</script>
 
 	<div class="wrapper">
 
 	<h1 class="title">Games List</h1>
 	
-		<table class="games_table">
+		<table id="games_table">
 			<tr>
 				<th>Game</th>
 				<th>Developer</th>
@@ -40,6 +50,10 @@
 				</tr>
 			</c:forEach>
 		</table>
+		
+		<div id="console">
+			<div class="text_area">Hello Everybody! Hello Everybody! Hello Everybody! Hello Everybody! Hello Everybody! Hello Everybody! Hello Everybody! Hello Everybody! Hello Everybody! Hello Everybody!</div>
+		</div>
 	</div>
 
 </body>
