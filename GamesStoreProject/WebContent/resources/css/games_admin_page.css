@@ -16,11 +16,30 @@ body {
 	padding-bottom: 100px;
 }
 
+h1.title {
+	text-align: center;
+}
+
+#button_add {
+	display: block;
+	float: right;
+	
+	width: 50px;
+	height: 50px;
+	margin-right: 152px;
+	
+	background-color: red;
+	
+}
+
 #games_table {
-	border: 1px solid gray;
+
+	width: 700px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 700px;
+	margin-top: 90px;
+
+	border: 1px solid gray;
 }
 
 #games_table td {
@@ -51,19 +70,20 @@ body {
 }
 
 #console {
-	width: 600px;
+	width: 900px;
 	height: 100px;
 	display: block;
 	
 	position: absolute;
-	background-color: #000010;
-	
-	opacity:0.7;
 	left: 100px;
 	top: 300px;
+	background-color: #000010;
+	opacity:0.7;
+	
+	padding-right: 5px;
 }
 
-#console .text_area {
+#console .console_text {
 	width: 97%;
 
 	margin-left: auto;
@@ -76,3 +96,30 @@ body {
 	color: #B2B2B2;
 	overflow-y: scroll;
 }
+
+#console .console_text p {
+	margin:5px 0px;
+	
+}
+
+#console .close_icon {
+	display: block;
+	width: 17px;
+	height: 17px;
+	//background-color: red;
+	
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.selected_row {
+	background-color: #94FF70;
+	cursor: pointer;
+}
+
+.selected_cell {
+	background-color: #00CC00;
+	cursor: pointer;
+}
+
