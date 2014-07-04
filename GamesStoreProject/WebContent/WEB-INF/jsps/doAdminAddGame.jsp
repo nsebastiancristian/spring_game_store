@@ -10,9 +10,9 @@
 </head>
 <body>
 
-<c:choose>
+ <c:choose>
 	<c:when test="${ success == true }">
-		<p>The user was succesfully created</p>
+		<p>The game was succesfully created</p>
 		<p><a href="<c:url value='/' />">Go back to main page</a></p>
 	</c:when>
 	<c:otherwise>

@@ -31,15 +31,30 @@
 </head>
 <body>
 <script type="text/javascript">
+	function console(text) {
+		$("div.console_text").append("<p>" + text + "</p>");
+	}
 
+	//Add a new game functionality
+	$(function() {
+		$("#button_add").click(function(){
+			window.location = "<c:url value='/adminAddGameForm' />";
+		}).hover(function(){
+			$(this).css("background-color", "green");
+		}, function(){
+			$(this).css("background-color", "red");
+		});
+	});
+
+	//Contextual menu related script
 	$(function(){
 		$(document).contextmenu({
-			delegate: "#button_add",
+			delegate: "td.game_cell",
 			menu: "#options",
-//	        position: {my: "left top", at: "left bottom"},
-			position: function(event, ui){
+	        position: {my: "left top", at: "left bottom"},
+			/*position: function(event, ui){
 				return {my: "left top", at: "left bottom", of: ui.target};
-			},
+			},*/
 			preventSelect: true,
 			taphold: true,
 			focus: function(event, ui) {
@@ -52,14 +67,29 @@
 				console.log("blur", ui.item);
 			},
 			beforeOpen: function(event, ui) {
-//				$("#container").contextmenu("replaceMenu", "#options2");
-//				$("#container").contextmenu("replaceMenu", [{title: "aaa"}, {title: "bbb"}]);
+				$(document).contextmenu("setEntry", "title", ui.target.text())
+
 			},
 			open: function(event, ui) {
 //	          alert("open on " + ui.target.text());
 			},
 			select: function(event, ui) {
-				alert("select " + ui.cmd + " on " + ui.target.text());
+				$target = ui.target;
+				switch(ui.cmd) {
+					case "view" : {
+						//console("View selected");
+						window.location = $target.find("a").attr("href");
+						break;
+					}
+					case "edit" : {
+						console("Edit selected");
+						break;
+					}
+					case "delete" : {
+						console("Delete selected");
+						break;
+					}
+				}
 			}
 		});
 	});
@@ -105,8 +135,8 @@
 			</tr>
 			<c:forEach var="game" items="${games}">
 				<tr>
-					<td class="game_cell" onclick="location.href='<c:url value='/game?id=${game.id}' />'">
-							${game.name}
+					<td class="game_cell" >
+						<a href="<c:url value='/adminViewGame?id=${game.id}' />">	${game.name} </a>
 					</td>
 					<td>${game.developer.name}</td>
 					<td>${game.publisher.name}</td>
@@ -121,16 +151,14 @@
 		</div>
 	</div>
 	
-	<ul id="options" style="display: none; font-size: 0.8em">
-			<li><a href="#action1"><span class="ui-icon custom-icon-firefox"></span>Action 1</a>
-			<li><a href="#action2"><span class="ui-icon ui-icon-heart"></span>Action 2</a>
-			<li class="ui-state-disabled"><a href="#action3">Action 3</a>
+	<ul id="options" style="display: none; font-size: 0.8em; width: 150px">
+			<li class="ui-state-disabled"><a href="#title">Test</a>
 			<li>----
-			<li><a>Extra</a>
-				<ul>
-					<li><a href="#action4">sub4</a>
-					<li><a href="#action5">sub5</a>
-				</ul>
+			<li><a href="#view"><span class="ui-icon ui-icon-search"></span>View</a>
+			<li><a href="#edit"><span class="ui-icon ui-icon-pencil"></span>Edit</a>
+			<li><a href="#delete"><span class="ui-icon ui-icon-close"></span>Delete</a>
+			<li>----
+			<li><a href="#favorite"><span class="ui-icon ui-icon-star"></span>Favorite</a>
 	</ul>
 </body>
 </html>

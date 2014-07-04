@@ -1,7 +1,6 @@
 package com.sebastian.web.gamestore.service;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sebastian.web.gamestore.dao.Game;
 import com.sebastian.web.gamestore.dao.GamesDao;
+import com.sebastian.web.gamestore.dao.Tag;
+import com.sebastian.web.gamestore.dao.Theme;
 import com.sebastian.web.gamestore.dao.User;
 import com.sebastian.web.helper.FileHandler;
 
@@ -63,6 +64,12 @@ public class GamesService  implements ServletContextAware {
 		return gamesDao.getMyWishlistGames(username);
 	}
 
+	public Game getGameDetails(String id) {
+		Game game = gamesDao.getGameDetails(id);
+		
+		return game;
+	}
+	
 	public Game getGameDetails(String id, User user) {
 		
 		Game game = gamesDao.getGameDetails(id);
@@ -142,5 +149,32 @@ public class GamesService  implements ServletContextAware {
 		
 		return pics;
 	}
+
+	public List<String> getGenres() {
+		return gamesDao.getGenres();
+	}
+
+	public List<Theme> getThemes() {
+		return gamesDao.getThemes();
+	}
+
+	public Theme getThemeFromId(int id) {
+		return gamesDao.getThemeFromId(id);
+	}
+
+	public List<Tag> getTags() {
+		return gamesDao.getTags();
+	}
+
+	public Tag getTagFromId(int id) {
+		
+		return gamesDao.getTagFromId(id);
+	}
+
+	public boolean addTheme(Theme theme) {
+				
+		return gamesDao.addTheme(theme);
+	}
+
 	
 }

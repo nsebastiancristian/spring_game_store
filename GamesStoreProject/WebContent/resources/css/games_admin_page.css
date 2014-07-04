@@ -24,12 +24,12 @@ h1.title {
 	display: block;
 	float: right;
 	
-	width: 50px;
-	height: 50px;
+	width: 25px;
+	height: 25px;
 	margin-right: 152px;
 	
 	background-color: red;
-	
+	cursor: pointer;
 }
 
 #games_table {
@@ -37,7 +37,7 @@ h1.title {
 	width: 700px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 90px;
+	margin-top: 60px;
 
 	border: 1px solid gray;
 }
@@ -114,12 +114,10 @@ h1.title {
 }
 
 .selected_row {
-	background-color: #94FF70;
-	cursor: pointer;
+	background-color: #207895;
 }
 
 .selected_cell {
-	background-color: #00CC00;
-	cursor: pointer;
+	background-color: #216277;
 }
 
